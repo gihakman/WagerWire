@@ -354,6 +354,7 @@ async function connectWallet() {
   return { provider, signer, address: await signer.getAddress() };
 }
 function getEscrow(signerOrProvider) {
+  // Instantiate escrow contract with signer for writes or provider for reads
   return new ethers.Contract(ESCROW_ADDR, ESCROW_ABI, signerOrProvider);
 }
 function getUSDC(signerOrProvider) {
