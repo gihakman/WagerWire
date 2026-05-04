@@ -295,6 +295,7 @@ const USDC_ADDR   = '0x036CbD53842c5426634e7929541eC2318f3dCF7e';
 const RPC_URL     = 'https://sepolia.base.org';
 
 const ESCROW_ABI = [
+  // Base Sepolia escrow contract interface
   'function createWager(address opponent, uint256 amount, string question, string sourceUrl) external returns (uint256)',
   'function fundWager(uint256 wagerId) external',
   'function cancelWager(uint256 wagerId) external',
