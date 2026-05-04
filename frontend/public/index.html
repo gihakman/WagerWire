@@ -324,7 +324,7 @@ function getProvider() {
 }
 async function connectWallet() {
   if (!window.ethereum) throw new Error('MetaMask not installed');
-  // Request accounts first
+  // Prompt MetaMask for accounts before checking network
   await window.ethereum.request({ method: 'eth_requestAccounts' });
   // Create provider without hardcoded chain to avoid NETWORK_ERROR
   const provider = new ethers.BrowserProvider(window.ethereum);
