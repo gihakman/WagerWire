@@ -1,78 +1,59 @@
 # WagerWire — P2P Subjective Betting Platform
 
-**Hackathon: GenLayer Testnet Bradbury**
+Live: https://wagerwire.onrender.com
 
-Two-chain architecture resolving social/creative subjective bets via GenLayer AI consensus.
+P2P subjective betting on real-world outcomes. Two players stake USDC on questions like "Will this tweet hit 50k retweets?" or "Will this Kickstarter reach $100k?". A GenLayer AI jury fetches live evidence and reaches consensus to settle the bet.
 
-## What It Does
+## How It Works
 
-Two friends stake equal USDC on a subjective real-world question:
-- *"Will this tweet go viral?"*
-- *"Will this Kickstarter reach its goal?"*
-- *"Will this restaurant get a Michelin star next month?"*
+1. **Creator** posts a wager with a question, evidence URL, metric, threshold, and opponent address
+2. **Both players** fund the escrow with equal USDC stakes on Base Sepolia
+3. **GenLayer AI validators** scrape the evidence source and vote on the outcome
+4. **Winner** receives the pooled USDC automatically
 
-The GenLayer Intelligent Contract fetches live data, processes it through LLM validators, and settles the bet via AI consensus. Funds live on Base Sepolia escrow; GenLayer only handles the verdict.
+## Contracts
+
+| Contract | Network | Address | Explorer |
+|---|---|---|---|
+| WagerWireEscrow.sol | Base Sepolia | `0xB4BB6457aE3E3c13AbD0b384788b6a7bfd77436e` | [Base Sepolia](https://sepolia.basescan.org/address/0xB4BB6457aE3E3c13AbD0b384788b6a7bfd77436e) |
+| WagerWire.py | GenLayer Bradbury | `0x9aFbb1C1C3eC434dc310420c358579e06b65B667C` | [Bradbury Explorer](https://explorer-bradbury.genlayer.com/tx/0x70b805a5b8f2aaa35f6c889cdd0d11ae8e024c7db8ef6663f175ae339dac24e3) |
+| USDC (testnet) | Base Sepolia | `0x036CbD53842c5426634e7929541eC2318f3dCF7e` | [Base Sepolia](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e) |
 
 ## Architecture
 
-- **Base Sepolia**: USDC escrow, player deposits/withdrawals (`contracts/WagerWireEscrow.sol`)
-- **GenLayer Bradbury**: Verdict resolution, source validation, consensus logging (`contracts/WagerWire.py`)
-- **Frontend**: React + Vite + TypeScript + genlayer-js + wagmi/viem (`frontend/`)
+- **Base Sepolia**: USDC escrow, create/fund/cancel/resolve wagers (`contracts/WagerWireEscrow.sol`)
+- **GenLayer Bradbury**: AI consensus, source validation, verdict resolution (`contracts/WagerWire.py`)
+- **Frontend**: Standalone HTML + React (Babel standalone) + ethers.js — no build step (`frontend/public/index.html`)
 
-## GenLayer Primitives Used
+## Whitelisted Sources
 
-- `gl.nondet.web.render(url, mode="text")` — Reader Pattern to fetch live data
-- `gl.eq_principle.prompt_comparative()` — Text-based AI consensus (sentiment, qualitative judgments)
-- `gl.eq_principle.custom()` — Numerical thresholds (e.g., follower count > X)
-- Domain whitelisting via `TreeMap[str, bool]` to prevent fake URL attacks
+- `twitter.com` / `x.com`
+- `kickstarter.com`
+- `guide.michelin.com`
 
-## Quick Start
+## GenLayer Primitives
 
-### 1. Setup Python Environment (GenLayer Contract)
+- `gl.nondet.web.render(url, mode="text")` — live data fetching
+- `gl.eq_principle.prompt_comparative()` — qualitative AI consensus
+- `gl.eq_principle.custom()` — numerical threshold validation
+- Domain whitelist via `TreeMap[str, bool]`
 
-```bash
-python -m venv venv
-venv\Scripts\pip install --upgrade pip
-venv\Scripts\pip install genlayer-py
-```
+## Local Development
 
-### 2. Setup Frontend
+The frontend is a single static HTML file. No build step required.
 
 ```bash
-cd frontend
-cp ..\.env.example .env.local
-# Edit .env.local with your deployed contract addresses
-npm install
-npm run dev
+cd frontend/public
+python -m http.server 3000
 ```
 
-### 3. Deploy Contracts
+Or open `frontend/public/index.html` directly in a browser with MetaMask installed.
 
-- Deploy `WagerWireEscrow.sol` to Base Sepolia with your USDC token address
-- Deploy `WagerWire.py` to GenLayer Bradbury via GenLayer Studio or CLI
-- Update `.env.local` with deployed addresses
+## Networks
 
-## Testnet Details
-
-- **RPC**: `zksync-os-testnet-genlayer.zksync.dev`
-- **Chain ID**: `4221`
-- **Symbol**: `GEN`
-- **Faucet**: https://testnet-faucet.genlayer.foundation/
-- **Explorer**: https://zksync-os-testnet-genlayer.explorer.zksync.dev/
-
-## Build Plan (Completed)
-
-1. ✅ Core GenLayer contract (create + resolve wager) with whitelisted domains
-2. ✅ Base Sepolia escrow contract in Solidity
-3. ✅ React frontend + genlayer-js integration + wagmi wallet connect
-4. 🔄 Test on Bradbury with real subjective bets between test accounts
-5. 🔄 Submit to Hackathon portal with live demo URL + GitHub repo
-
-## Differentiation
-
-- **Proven** = sports/politics head-to-head outcomes
-- **Callit** = prediction markets with four-stage AI consensus
-- **WagerWire** = social/creative subjective bets resolved by fetching live social/Kickstarter data
+- **Base Sepolia RPC**: `https://sepolia.base.org`
+- **Base Sepolia Chain ID**: `84532`
+- **GenLayer Bradbury Explorer**: `https://explorer-bradbury.genlayer.com`
 
 ## License
 
