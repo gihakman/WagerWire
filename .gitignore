@@ -1,0 +1,26 @@
+# Secrets
+.env
+.env.local
+
+# Node
+node_modules/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Build artifacts
+dist/
+artifacts/
+cache/
+
+# Output logs & temp files
+*.txt
+trace_out.txt
+deploy_*_out.txt
+test_*_out.txt
+
+# Misc
+.claude/
+.DS_Store
