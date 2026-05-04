@@ -319,8 +319,7 @@ const USDC_ABI = [
 
 /* ─── ETHERS HELPERS ─── */
 function getProvider() {
-  // Always use the public Base Sepolia RPC for reads so unconnected users
-  // (or users whose MetaMask is on a different chain) still see live data.
+  // Force Base Sepolia RPC for all reads — avoids MetaMask network mismatch
   return new ethers.JsonRpcProvider(RPC_URL);
 }
 async function connectWallet() {
