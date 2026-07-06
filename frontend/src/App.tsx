@@ -51,7 +51,7 @@ function App() {
           textAlign: 'center',
         }}
       >
-        WagerWire — Base Sepolia escrow + GenLayer Bradbury AI consensus · Testnet only
+        WagerWire · Base Sepolia escrow + GenLayer Bradbury AI consensus · Testnet only
       </footer>
     </div>
   )

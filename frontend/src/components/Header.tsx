@@ -16,7 +16,8 @@ export default function Header() {
         borderBottom: '1px solid var(--border)',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <img src="/favicon.svg" width={30} height={30} alt="WagerWire logo" style={{ display: 'block' }} />
         <h1 style={{ fontSize: 24, margin: 0, color: 'var(--text-h)' }}>
           WagerWire
         </h1>
