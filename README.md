@@ -1,6 +1,6 @@
 # WagerWire — P2P Subjective Betting Platform
 
-Live: https://wager-wire.vercel.app
+Live: https://wagerwire-genlayer.vercel.app
 
 P2P subjective betting on real-world outcomes. Two players stake USDC on questions like "Will this tweet hit 50k retweets?" or "Will this Kickstarter reach $100k?". A GenLayer AI jury fetches live evidence and reaches consensus to settle the bet.
 
